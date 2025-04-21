@@ -68,7 +68,7 @@ Para fazer o commit
 Para acessar o histórico do repositório:
 	git log
 Para mostrar o histórico de commits em uma única linha:
-	git log --0neline
+	git log --oneline
 Para mostrar o histórico de commits em forma de um gráfico, contendo as branchs:
 	git log --graph
 Para mostrar o histórico de commits contendo os nomes das branchs e tags:
