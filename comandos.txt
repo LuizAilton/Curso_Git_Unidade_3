@@ -1,0 +1,143 @@
+Tarefa Prática – Unidade 3: Recuperação e Histórico com Git
+
+Objetivo: Aplicar os conhecimentos adquiridos sobre recuperação e histórico no Git, utilizando recursos como visualização de commits, reversões, stashes, reflog e marcação de versões.
+
+Luiz Ailton de Araujo Souza
+20242158060041
+
+Etapas da Atividade
+
+1-Crie um diretório específico para esta tarefa e inicialize um repositório Git.
+Foi criado o diretório Unidade3 no seguinte caminho:
+	C:\Users\LuizAilton\Desktop\TSI\14-CursoGIT\Unidade3
+Para Inicializar o repositório local na branch main:
+	git init -b main
+
+
+2-Crie três arquivos de texto com conteúdos diferentes e registre-os no histórico do repositório por meio de um commit inicial.
+Foram criados três arquivos:
+	01-brasil.txt
+	02-argentina.txt
+	03-chile.txt
+Para adicionar os arquivos para commit:
+	git add 01-brasil.txt 02-argentina.txt 03-chile.txt
+Para fazer o commit
+	git commit -m "Primeiro commit: Registro de três arquivos de texto originais."
+
+
+3-Realize alterações em dois desses arquivos e registre essas alterações no histórico. Antes disso, examine o que foi alterado no repositório.
+Foram realizadas alterações nos arquivos:
+	01-brasil.txt
+	02-argentina.txt
+Para examinar o que foi alterado nos arquivos:
+	git diff
+
+RESULTADO:
+diff --git a/01-brasil.txt b/01-brasil.txt
+index 0585a35..79622ea 100644
+--- a/01-brasil.txt
++++ b/01-brasil.txt
+@@ -1,3 +1,4 @@
+ Brasil
+ O Brasil é o maior país da América do Sul e o único de língua portuguesa no continente. Possui uma grande diversidade cultural e natural, com florestas tropicais, como a Amazônia, e vastas áreas urbanas, como São Paulo e Rio de Janeiro.
+-Sua economia é uma das maiores da América Latina, com destaque para a agricultura, mineração e indústria. O país tem uma população de mais de 200 milhões de pessoas e é conhecido pelo futebol e o carnaval.
+\ No newline at end of file
++Sua economia é uma das maiores da América Latina, com destaque para a agricultura, mineração e indústria. O país tem uma população de mais de 200 milhões de pessoas e é conhecido pelo futebol e o carnaval.
++Além disso, o Brasil possui uma rica herança histórica e cultural, refletida em suas festas populares, culinária variada e expressões artísticas. O país abriga diversos patrimônios mundiais reconhecidos pela UNESCO e continua a desempenhar um papel importante nas questões ambientais e sociais da região.
+\ No newline at end of file
+diff --git a/02-argentina.txt b/02-argentina.txt
+index acfe46a..ab9826f 100644
+--- a/02-argentina.txt
++++ b/02-argentina.txt
+@@ -1,3 +1,4 @@
+ Argentina
+ A Argentina está localizada no sul da América do Sul e tem o espanhol como idioma oficial. É conhecida por suas paisagens variadas, como os Andes, as planícies da Patagônia e as cataratas do Iguaçu.
+-A cultura argentina tem forte influência europeia, especialmente italiana e espanhola. O país também se destaca na produção de vinho, no tango e no futebol, sendo Buenos Aires sua capital e maior cidade.
+\ No newline at end of file
++A cultura argentina tem forte influência europeia, especialmente italiana e espanhola. O país também se destaca na produção de vinho, no tango e no futebol, sendo Buenos Aires sua capital e maior cidade.
++Além desses aspectos, a Argentina possui uma economia diversificada, com setores importantes como a agricultura, a pecuária e a indústria. O país é um dos maiores produtores mundiais de soja e carne bovina, e enfrenta desafios econômicos e sociais enquanto busca estabilidade e crescimento sustentável.
+\ No newline at end of file
+
+Para adicionar os arquivos para commit:
+	git add 01-brasil.txt 02-argentina.txt
+Para fazer o commit
+	git commit -m "Segundo commit: Alteração dos arquivos 01-brasil.txt e 02-argentina.txt."
+
+
+4-Acesse o histórico do repositório utilizando diferentes formas de visualização e analise os registros de commits.
+Para acessar o histórico do repositório:
+	git log
+Para mostrar o histórico de commits em uma única linha:
+	git log --0neline
+Para mostrar o histórico de commits em forma de um gráfico, contendo as branchs:
+	git log --graph
+Para mostrar o histórico de commits contendo os nomes das branchs e tags:
+	git log --decorate
+Para mostrar o histórico de commits com todas as branchs:
+	git log -all
+
+
+5-Reverta a última alteração registrada no histórico do projeto, mantendo o repositório consistente e sem apagar informações anteriores.
+para reverter a última alteração registrada no histórico do projeto, sem apagar as informações anteriores:
+	git reset --soft HEAD~1
+
+
+6-Faça uma nova modificação em qualquer um dos arquivos, armazene-a temporariamente, mude de contexto (por exemplo, para uma nova linha de desenvolvimento) e depois retome a alteração.
+Para criar uma nova branch que não faz parte do ramo da main:
+	git checkout --orphan develop
+Foram realizadas alterações no arquivo:
+	01-brasil.txt
+Para alternar para a branch main:
+	git switch main
+
+RESULTADO:
+error: Your local changes to the following files would be overwritten by checkout:
+        01-brasil.txt
+Please commit your changes or stash them before you switch branches.
+Aborting
+
+Para armazenar as modificações de forma temporária:
+	git stash
+
+RESULTADO:
+Saved working directory and index state WIP on main: 4842e88 Primeiro commit: Registro de três arquivos de texto originais.
+
+Agora podemos alternar para a branch develop:
+	git switch develop
+Para voltar para a branch main
+	git switch main
+Para retomar para as alterações na branch main:
+	git stash pop
+Para fazer o commit das alterações:
+	git commit -am 'Comitando as últimas alterações nos arquivos de texto'
+
+
+7-Lste os registros recentes de movimentação do repositório, mesmo aqueles que não estão visíveis no histórico tradicional.
+Para mostrar os registros atuais e os que não estão visíveis no histórico tradicional:
+	git reflog
+
+
+8-Marque o commit inicial do projeto como uma versão estável, utilizando um recurso de marcação que permita referenciá-lo de forma direta e descritiva. Essa marcação deve estar disponível no repositório remoto.
+Para marcar o commit inicial do projeto como versão estável, usamos o comando git tag:
+	 git tag -a V1.1.0 4842e88 -m 'Versão inicial dos arquivos de texto.'
+Foi criado um repositório público no GitHub:
+	https://github.com/LuizAilton/Curso_Git_Unidade_3.git
+Para adicionar o repositório remoto com o nome origin:
+	git remote add origin https://github.com/LuizAilton/Curso_Git_Unidade_3.git
+Para subir a branch main:
+	git push -u origin main
+Para enviar a tag V1.1.0 ao repositório remoto:
+	git push origin V1.1.0
+
+
+9-Por fim, crie um arquivo chamado comandos.txt contendo todos os comandos utilizados para executar esta tarefa, em ordem cronológica, e registre esse arquivo no histórico do repositório com um novo commit.
+OBS: O arquivo comandos.txt foi criado desde o início da atividade, onde já fui registrando todos os comentários e comandos.
+Para adicionar o arquivo comandos.txt para commit:
+	git add comandos.txt
+Para fazer o commit:
+	git commit -m 'Foi adicionado o arquivo comandos.txt.'
+
+
+10-Suba todas as modificações para um repositório remoto público.
+Para subir todas as modificações:
+	git push -u origin main
